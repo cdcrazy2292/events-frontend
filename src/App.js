@@ -1,25 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import EventsContainer from "./containers/EventsContainer";
+import {Container} from "@material-ui/core";
+import QuoteContainer from "./containers/QuoteContainer";
+import AddTaskContainer from "./containers/AddTaskContainer";
+import {useState} from "react";
+import HeaderContainer from "./containers/HeaderContainer";
+// All of the above are dependencies we need from libraries and files I've created that are within the project but in
+// other folders
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App() { // App Start
+    const [renderState, setRenderState] = useState(false) // setting state for refreshes when an event is added
+    const toggleAppRerender = renderState => { // function that handles the assignment of renderState
+        setRenderState(renderState) // assigning renderState to the value passed in the function parameter
+    }
+    return ( // returning the app. The below is a skeleton of the components I've created
+            <Container>
+                <HeaderContainer />
+                <AddTaskContainer toggleAppRerender={toggleAppRerender}/>
+                <EventsContainer toggleAppRerender={toggleAppRerender} renderState={renderState} />
+                <QuoteContainer/>
+            </Container>
+    );
 }
 
-export default App;
+export default App; // making visible to other files
